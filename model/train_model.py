@@ -1,11 +1,3 @@
-"""
-train_model.py
---------------
-Defines and trains the Edge-Enhanced CNN-LSTM hybrid model with Attention
-for IoT Network Intrusion Detection on the CICIDS2017 dataset.
-Saves trained model weights and training history to outputs/.
-"""
-
 import numpy as np
 import pandas as pd
 import matplotlib
@@ -37,9 +29,9 @@ print("=" * 60)
 print("  Edge-Enhanced CNN-LSTM IDS — Model Training")
 print("=" * 60)
 
-# ------------------------------------------------------------------
+
 # 1. Load Data
-# ------------------------------------------------------------------
+
 print("\n[1] Loading preprocessed datasets ...")
 train_df = pd.read_csv(os.path.join(DATA_DIR, "train.csv"))
 val_df   = pd.read_csv(os.path.join(DATA_DIR, "val.csv"))
@@ -64,9 +56,9 @@ print(f"    X_train shape : {X_train.shape}")
 print(f"    X_val shape   : {X_val.shape}")
 print(f"    Num classes   : {NUM_CLASSES}")
 
-# ------------------------------------------------------------------
+
 # 2. Attention Mechanism
-# ------------------------------------------------------------------
+
 def attention_block(inputs):
     """Soft attention over LSTM output timesteps."""
     # inputs shape: (batch, timesteps, features)
@@ -80,9 +72,9 @@ def attention_block(inputs):
     context = Lambda(lambda x: K.sum(x, axis=1))(weighted)  # (batch, features)
     return context
 
-# ------------------------------------------------------------------
+
 # 3. Build Model
-# ------------------------------------------------------------------
+
 print("\n[2] Building CNN-LSTM + Attention model ...")
 
 inp = Input(shape=(X_train.shape[1], 1), name="network_flow_input")
@@ -127,9 +119,9 @@ model.summary()
 total_params = model.count_params()
 print(f"\n    Total trainable parameters: {total_params:,}")
 
-# ------------------------------------------------------------------
+
 # 4. Callbacks
-# ------------------------------------------------------------------
+
 callbacks = [
     EarlyStopping(monitor="val_loss", patience=8, restore_best_weights=True, verbose=1),
     ReduceLROnPlateau(monitor="val_loss", factor=0.5, patience=4, min_lr=1e-6, verbose=1),
@@ -138,9 +130,9 @@ callbacks = [
     CSVLogger(os.path.join(OUT_DIR, "training_log.csv"))
 ]
 
-# ------------------------------------------------------------------
+
 # 5. Train
-# ------------------------------------------------------------------
+
 print("\n[3] Starting training ...")
 EPOCHS     = 30
 BATCH_SIZE = 256
@@ -165,9 +157,9 @@ print(f"    Best epoch    : {best_epoch}")
 print(f"    Best val acc  : {best_val_acc:.4f}")
 print(f"    Best val loss : {best_val_loss:.4f}")
 
-# ------------------------------------------------------------------
+
 # 6. Plot Training Curves
-# ------------------------------------------------------------------
+
 print("\n[4] Saving training curves ...")
 fig, axes = plt.subplots(1, 2, figsize=(13, 5))
 
@@ -192,9 +184,8 @@ plt.savefig(os.path.join(OUT_DIR, "training_curves.png"), dpi=150, bbox_inches="
 plt.close()
 print(f"    Saved → outputs/training_curves.png")
 
-# ------------------------------------------------------------------
 # 7. Save model summary and training meta
-# ------------------------------------------------------------------
+
 meta = {
     "model_name"       : "Edge_CNN_LSTM_Attention_IDS",
     "total_params"     : total_params,
