@@ -1,0 +1,4 @@
+Format,Size_KB,Latency_ms_per_sample,Accuracy_Drop_pct
+Keras (float32),875.8,2.519,0.0
+TFLite float32,897.3,1.774,0.0
+TFLite INT8,271.2,1.172,0.18

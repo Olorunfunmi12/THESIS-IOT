@@ -1,0 +1,47 @@
+============================================================
+  CICIDS2017 — Data Preprocessing Pipeline
+============================================================
+
+[1] Generating synthetic CICIDS2017-style dataset ...
+    Samples : 18,000
+    Features: 78
+    Classes : 12
+
+[2] Class distribution:
+    BENIGN                               8100  (45.0%)
+    DoS Hulk                             2700  (15.0%)
+    PortScan                             1800  (10.0%)
+    DDoS                                 1440  (8.0%)
+    DoS GoldenEye                         900  (5.0%)
+    FTP-Patator                           720  (4.0%)
+    SSH-Patator                           540  (3.0%)
+    DoS slowloris                         540  (3.0%)
+    Bot                                   360  (2.0%)
+    Web Attack – Brute Force              360  (2.0%)
+    DoS Slowhttptest                      360  (2.0%)
+    Infiltration                          180  (1.0%)
+
+[3] Cleaning: dropping inf/NaN values ...
+    Rows before: 18,000  |  After: 18,000
+
+[4] Encoding labels ...
+    Classes encoded: ['BENIGN', 'Bot', 'DDoS', 'DoS GoldenEye', 'DoS Hulk', 'DoS Slowhttptest', 'DoS slowloris', 'FTP-Patator', 'Infiltration', 'PortScan', 'SSH-Patator', 'Web Attack – Brute Force']
+
+[5] Normalizing features with MinMaxScaler ...
+    Feature range after scaling: [0.0, 1.0]
+
+[6] Splitting into Train / Validation / Test sets ...
+    Train : 12,600 samples (70%)
+    Val   : 2,700 samples (15%)
+    Test  : 2,700 samples (15%)
+
+[7] Saved outputs:
+    outputs/train.csv   (12,600 rows)
+    outputs/val.csv     (2,700 rows)
+    outputs/test.csv    (2,700 rows)
+    outputs/label_map.csv
+
+============================================================
+  Preprocessing complete.
+============================================================
+

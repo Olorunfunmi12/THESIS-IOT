@@ -1,0 +1,13 @@
+encoded,label
+0,BENIGN
+1,Bot
+2,DDoS
+3,DoS GoldenEye
+4,DoS Hulk
+5,DoS Slowhttptest
+6,DoS slowloris
+7,FTP-Patator
+8,Infiltration
+9,PortScan
+10,SSH-Patator
+11,Web Attack – Brute Force

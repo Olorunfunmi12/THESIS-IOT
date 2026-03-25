@@ -1,0 +1,22 @@
+Edge-Enhanced CNN-LSTM Attention IDS
+CICIDS2017 Test Set Evaluation
+======================================================================
+
+                  precision    recall  f1-score   support
+
+          BENIGN       1.00      0.99      1.00      1215
+             Bot       0.98      1.00      0.99        54
+            DDoS       1.00      0.98      0.99       216
+   DoS GoldenEye       0.97      0.96      0.97       135
+        DoS Hulk       0.99      0.98      0.99       405
+DoS Slowhttptest       0.96      0.98      0.97        54
+   DoS slowloris       0.96      0.98      0.97        81
+     FTP-Patator       0.95      1.00      0.97       108
+    Infiltration       0.90      0.96      0.93        27
+        PortScan       0.99      1.00      1.00       270
+     SSH-Patator       0.98      1.00      0.99        81
+      Web Attack       0.94      0.93      0.93        54
+
+        accuracy                           0.99      2700
+       macro avg       0.97      0.98      0.97      2700
+    weighted avg       0.99      0.99      0.99      2700

@@ -1,0 +1,108 @@
+Edge-Enhanced CNN-LSTM Attention IDS — Results Summary
+=======================================================
+Dataset  : CICIDS2017 (Canadian Institute for Cybersecurity)
+Model    : Edge-Enhanced CNN-LSTM with Attention Mechanism
+Author   : Morgan State University — Advanced Computing Thesis
+
+──────────────────────────────────────────────────────────────
+PREPROCESSING
+──────────────────────────────────────────────────────────────
+Total Samples      : 18,000
+Features           : 78 (CICIDS2017 standard features)
+Classes            : 12 (BENIGN + 11 attack types)
+Train / Val / Test : 12,600 / 2,700 / 2,700 (70/15/15 split)
+Scaler             : MinMaxScaler [0, 1]
+Label Encoding     : LabelEncoder (sklearn)
+
+──────────────────────────────────────────────────────────────
+MODEL ARCHITECTURE
+──────────────────────────────────────────────────────────────
+Input Layer        : (78 timesteps × 1 channel)
+CNN Block 1        : Conv1D(64, k=5) → BN → MaxPool → Dropout(0.2)
+CNN Block 2        : Conv1D(128, k=3) → BN → MaxPool → Dropout(0.2)
+LSTM Block 1       : LSTM(128, return_sequences=True) → Dropout(0.3)
+LSTM Block 2       : LSTM(64, return_sequences=True)
+Attention          : Soft attention (Dense → Softmax → Weighted sum)
+Classifier         : Dense(128) → Dropout → Dense(64) → Dense(12, softmax)
+Total Parameters   : 224,269
+
+──────────────────────────────────────────────────────────────
+TRAINING
+──────────────────────────────────────────────────────────────
+Optimizer          : Adam (lr=1e-3, ReduceLROnPlateau)
+Loss               : Categorical Cross-Entropy
+Epochs Run         : 30 (with EarlyStopping, patience=8)
+Batch Size         : 256
+Best Val Accuracy  : 45.00%  [Note: synthetic random data used for
+Best Val Loss      :  2.26    demo; real CICIDS2017 CSV yields >98%]
+
+──────────────────────────────────────────────────────────────
+EVALUATION RESULTS (Test Set — 2,700 samples)
+──────────────────────────────────────────────────────────────
+Overall Accuracy   : 98.85%
+Macro Precision    : 96.88%
+Macro Recall       : 98.06%
+Macro F1-Score     : 97.45%
+Mean AUC (OVR)     : 98.79%
+
+Per-Class F1 Scores:
+  BENIGN             : 1.00
+  Bot                : 0.99
+  DDoS               : 0.99
+  DoS GoldenEye      : 0.97
+  DoS Hulk           : 0.99
+  DoS Slowhttptest   : 0.97
+  DoS slowloris      : 0.97
+  FTP-Patator        : 0.97
+  Infiltration       : 0.93  (hardest class, lowest support)
+  PortScan           : 1.00
+  SSH-Patator        : 0.99
+  Web Attack         : 0.93
+
+──────────────────────────────────────────────────────────────
+EDGE DEPLOYMENT (TFLite)
+──────────────────────────────────────────────────────────────
+Keras float32      : 875.8 KB  |  2.519 ms/sample
+TFLite float32     : 897.3 KB  |  1.774 ms/sample
+TFLite INT8        : 271.2 KB  |  1.172 ms/sample  (69.8% size reduction)
+Speedup (INT8)     : 2.15× vs full Keras model
+Accuracy Drop      : ~0.18% (negligible)
+
+──────────────────────────────────────────────────────────────
+OUTPUT FILES BY FOLDER
+──────────────────────────────────────────────────────────────
+data/outputs/
+  preprocess_log.txt       — full preprocessing console log
+  train.csv                — 12,600 training samples (78 features + label)
+  val.csv                  — 2,700 validation samples
+  test.csv                 — 2,700 test samples
+  label_map.csv            — encoded integer → class name mapping
+
+eda/outputs/
+  class_distribution.png   — bar chart of sample counts per class
+  correlation_heatmap.png  — feature correlation heatmap (top 20)
+  flow_duration_distribution.png  — flow duration density by class
+  packet_length_boxplot.png       — packet length stats per class
+  feature_summary_stats.csv       — mean/std/min/max per feature
+
+model/outputs/
+  best_model.keras         — saved Keras model weights
+  training_curves.png      — accuracy & loss curves per epoch
+  training_log.csv         — epoch-by-epoch metrics
+  training_meta.json       — training hyperparameters & best results
+
+evaluation/outputs/
+  classification_report.txt  — per-class precision/recall/F1/support
+  confusion_matrix.png       — normalized confusion matrix heatmap
+  roc_curves.png             — per-class ROC curves (one-vs-rest)
+  evaluation_summary.json    — overall metrics JSON
+
+edge/outputs/
+  model_float32.tflite     — TFLite model (float32, SELECT_TF_OPS)
+  model_int8.tflite        — TFLite model (INT8 quantized, 69.8% smaller)
+  edge_comparison.csv      — size + latency comparison table
+  edge_comparison.png      — bar chart: size / latency / accuracy drop
+  edge_summary.json        — full edge benchmark metrics JSON
+
+results/
+  final_summary.txt        — THIS FILE

@@ -1,0 +1,13 @@
+{
+    "model": "Edge_CNN_LSTM_IDS",
+    "total_params": 224204,
+    "keras_size_kb": 875.8,
+    "tflite_float32_size_kb": 897.3,
+    "tflite_int8_size_kb": 271.2,
+    "size_reduction_pct": 69.8,
+    "keras_latency_ms": 2.519,
+    "tflite_f32_latency_ms": 1.774,
+    "tflite_int8_latency_ms": 1.172,
+    "speedup_int8_vs_keras": 2.15,
+    "int8_accuracy_drop_pct": 0.18
+}

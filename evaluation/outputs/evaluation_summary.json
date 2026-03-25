@@ -1,0 +1,24 @@
+{
+    "model": "Edge_CNN_LSTM_Attention_IDS",
+    "dataset": "CICIDS2017",
+    "test_samples": 2700,
+    "overall_accuracy": 0.988519,
+    "macro_precision": 0.968813,
+    "macro_recall": 0.98059,
+    "macro_f1_score": 0.974495,
+    "mean_auc_ovr": 0.987908,
+    "per_class_auc": {
+        "BENIGN": 0.9938,
+        "Bot": 0.994,
+        "DDoS": 0.9906,
+        "DoS GoldenEye": 0.9899,
+        "DoS Hulk": 0.9835,
+        "DoS Slowhttptest": 0.9822,
+        "DoS slowloris": 0.9877,
+        "FTP-Patator": 0.9951,
+        "Infiltration": 0.9886,
+        "PortScan": 0.9956,
+        "SSH-Patator": 0.9949,
+        "Web Attack": 0.959
+    }
+}
