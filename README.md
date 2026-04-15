@@ -1,12 +1,4 @@
-# Edge-Enhanced CNN-LSTM Intrusion Detection System
-### Master's Thesis — Advanced Computing | Morgan State University
-
-> **IoT Network Intrusion Detection using a Hybrid CNN-LSTM Architecture with Attention Mechanism, optimised for Edge Deployment on Resource-Constrained Devices**
-
----
-
 ## Repository Structure
-
 ```
 thesis-iot-ids/
 ├── data/
